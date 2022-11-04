@@ -5,8 +5,8 @@ terraform {
       version = "~> 4.0"
     }
   }
-   backend "s3" {
-    bucket = "terraform-state-12312d123f"
+  backend "s3" {
+    bucket = "terraform-state-challenge-arbeitnow"
     key    = "terraform.tfstate"
     region = "us-west-2"
   }

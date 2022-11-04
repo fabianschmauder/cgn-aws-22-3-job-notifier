@@ -16,9 +16,9 @@ resource "aws_launch_template" "webserver" {
 
   image_id = "ami-08e2d37b6a0129927"
 
-  
+
   instance_type = "t3.micro"
-  
+
   key_name = "vockey"
 
 
@@ -29,11 +29,11 @@ resource "aws_launch_template" "webserver" {
 }
 
 resource "aws_autoscaling_group" "webserver" {
-  vpc_zone_identifier       = [aws_subnet.private_subnet_a.id, aws_subnet.private_subnet_b.id]
-  desired_capacity   = 2
-  max_size           = 3
-  min_size           = 1
-
+  vpc_zone_identifier = [aws_subnet.private_subnet_a.id, aws_subnet.private_subnet_b.id]
+  desired_capacity    = 2
+  max_size            = 3
+  min_size            = 1
+  target_group_arns = [aws_lb_target_group.webserver_target.arn]
   launch_template {
     id      = aws_launch_template.webserver.id
     version = "$Latest"
@@ -43,7 +43,3 @@ resource "aws_autoscaling_group" "webserver" {
   ]
 }
 
-resource "aws_autoscaling_attachment" "asg_attachment_bar" {
-  autoscaling_group_name = aws_autoscaling_group.webserver.id
-  lb_target_group_arn    = aws_lb_target_group.webserver_target.arn
-}
