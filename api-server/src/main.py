@@ -18,11 +18,9 @@ jobs_data = [{
 def health():
     return {"health": "OK"}
 
-
 @app.get("/job")
 def getJobs():
     return jobs_data
-
 
 @app.get("/job/{id}")
 def getJob(id):
