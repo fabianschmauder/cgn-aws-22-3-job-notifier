@@ -1,5 +1,5 @@
 resource "aws_launch_template" "webserver" {
-  name = "webserver"
+  name = "jay101"
 
   block_device_mappings {
     device_name = "/dev/sda1"
@@ -17,7 +17,7 @@ resource "aws_launch_template" "webserver" {
   image_id = "ami-08e2d37b6a0129927"
 
   
-  instance_type = "t3.micro"
+  instance_type = "t2.micro"
   
   key_name = "vockey"
 
@@ -28,14 +28,14 @@ resource "aws_launch_template" "webserver" {
   user_data = filebase64("script/userdata.sh")
 }
 
-resource "aws_autoscaling_group" "webserver" {
+resource "aws_autoscaling_group" "jay101" {
   vpc_zone_identifier       = [aws_subnet.private_subnet_a.id, aws_subnet.private_subnet_b.id]
   desired_capacity   = 2
   max_size           = 3
   min_size           = 1
 
   launch_template {
-    id      = aws_launch_template.webserver.id
+    id      = aws_launch_template.jay101.id
     version = "$Latest"
   }
   depends_on = [
@@ -44,6 +44,6 @@ resource "aws_autoscaling_group" "webserver" {
 }
 
 resource "aws_autoscaling_attachment" "asg_attachment_bar" {
-  autoscaling_group_name = aws_autoscaling_group.webserver.id
-  lb_target_group_arn    = aws_lb_target_group.webserver_target.arn
+  autoscaling_group_name = aws_autoscaling_group.jay101.id
+  lb_target_group_arn    = aws_lb_target_group.jay101_target.arn
 }
