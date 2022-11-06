@@ -1,17 +1,10 @@
 from fastapi import FastAPI, HTTPException
 import uvicorn
+from get_jobs_from_s3 import get_da_jobs
 
 app = FastAPI()
 
-jobs_data = [{
-    "id": "uid1",
-    "title": "Nice Job",
-    "description": "super nice job"
-}, {
-    "id": "uid2",
-    "title": "Nice Job2",
-    "description": "super nice job2"
-}]
+jobs_data = get_da_jobs()
 
 
 @app.get("/")

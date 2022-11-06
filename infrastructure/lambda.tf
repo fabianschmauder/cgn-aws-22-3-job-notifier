@@ -8,8 +8,8 @@ resource "aws_lambda_function" "jobvault_lambda" {
 }
 
 resource "aws_lambda_layer_version" "lambda_layer" {
-  filename         = "requests.zip"
-  layer_name       = "requests"
+  filename            = "requests.zip"
+  layer_name          = "requests"
 
   compatible_runtimes = ["python3.9"]
 }
@@ -21,7 +21,7 @@ resource "aws_cloudwatch_event_rule" "get_the_jobs" {
 }
 
 resource "aws_cloudwatch_event_target" "jobvault_lambda_lambda" {
-    rule = "${aws_cloudwatch_event_rule.get_the_jobs.name}"
-    target_id = "${aws_lambda_function.jobvault_lambda.id}"
-    arn = "${aws_lambda_function.jobvault_lambda.arn}"
+    rule              = "${aws_cloudwatch_event_rule.get_the_jobs.name}"
+    target_id         = "${aws_lambda_function.jobvault_lambda.id}"
+    arn               = "${aws_lambda_function.jobvault_lambda.arn}"
 }
