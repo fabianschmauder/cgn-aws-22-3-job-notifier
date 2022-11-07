@@ -4,10 +4,10 @@ resource "aws_security_group" "allow_http" {
   vpc_id      = aws_vpc.myvpc.id
 
   ingress {
-    description = "Http"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
+    description     = "Http"
+    from_port       = 80
+    to_port         = 80
+    protocol        = "tcp"
     security_groups = [aws_security_group.allow_http_lb.id]
   }
 

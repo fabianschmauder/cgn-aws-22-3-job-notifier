@@ -3,8 +3,8 @@ resource "aws_vpc" "myvpc" {
 }
 
 resource "aws_subnet" "public_subnet_a" {
-  vpc_id     = aws_vpc.myvpc.id
-  cidr_block = "10.0.1.0/24"
+  vpc_id            = aws_vpc.myvpc.id
+  cidr_block        = "10.0.1.0/24"
   availability_zone = "us-west-2a"
 
   tags = {
@@ -13,8 +13,8 @@ resource "aws_subnet" "public_subnet_a" {
 }
 
 resource "aws_subnet" "public_subnet_b" {
-  vpc_id     = aws_vpc.myvpc.id
-  cidr_block = "10.0.2.0/24"
+  vpc_id            = aws_vpc.myvpc.id
+  cidr_block        = "10.0.2.0/24"
   availability_zone = "us-west-2b"
 
   tags = {
@@ -23,8 +23,8 @@ resource "aws_subnet" "public_subnet_b" {
 }
 
 resource "aws_subnet" "private_subnet_a" {
-  vpc_id     = aws_vpc.myvpc.id
-  cidr_block = "10.0.3.0/24"
+  vpc_id            = aws_vpc.myvpc.id
+  cidr_block        = "10.0.3.0/24"
   availability_zone = "us-west-2a"
 
   tags = {
@@ -33,8 +33,8 @@ resource "aws_subnet" "private_subnet_a" {
 }
 
 resource "aws_subnet" "private_subnet_b" {
-  vpc_id     = aws_vpc.myvpc.id
-  cidr_block = "10.0.4.0/24"
+  vpc_id            = aws_vpc.myvpc.id
+  cidr_block        = "10.0.4.0/24"
   availability_zone = "us-west-2b"
 
   tags = {
@@ -70,7 +70,7 @@ resource "aws_route_table_association" "b" {
 }
 
 resource "aws_eip" "eip" {
-  vpc      = true
+  vpc = true
 }
 
 resource "aws_nat_gateway" "nat" {
