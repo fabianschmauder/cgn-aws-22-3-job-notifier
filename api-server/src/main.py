@@ -1,17 +1,8 @@
 from fastapi import FastAPI, HTTPException
 import uvicorn
+from s3_utils import get_job_data, list_jobs
 
 app = FastAPI()
-
-jobs_data = [{
-    "id": "uid1",
-    "title": "Nice Job",
-    "description": "super nice job"
-}, {
-    "id": "uid2",
-    "title": "Nice Job2",
-    "description": "super nice job2"
-}]
 
 
 @app.get("/")
@@ -21,16 +12,18 @@ def health():
 
 @app.get("/job")
 def getJobs():
-    return jobs_data
+    jobs = []
+    for jobname in list_jobs():
+        jobs.append(get_job_data(jobname))
+    return jobs
 
 
 @app.get("/job/{id}")
 def getJob(id):
-    for job in jobs_data:
-        if(job["id"] == id):
-            return job
-    raise HTTPException(
-        status_code=404, detail="Job with id " + id + " not found")
+    try:
+        return get_job_data(id)
+    except Exception:
+        raise HTTPException(status_code=404, detail="Job with id " + id + " not found")
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=80)
