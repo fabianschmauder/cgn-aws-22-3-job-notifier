@@ -1,5 +1,5 @@
 from arbeitnowapi import load_jobs
-
+from s3_utils import save_jobs_to_s3
 
 def map_jobs(jobs_from_api):
     jobs = []
