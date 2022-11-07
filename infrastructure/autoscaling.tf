@@ -1,5 +1,5 @@
-resource "aws_launch_template" "webserver" {
-  name = "webserver"
+resource "aws_launch_template" "job_webserver" {
+  name = "job_webserver"
 
   block_device_mappings {
     device_name = "/dev/sda1"
@@ -28,22 +28,18 @@ resource "aws_launch_template" "webserver" {
   user_data = filebase64("script/userdata.sh")
 }
 
-resource "aws_autoscaling_group" "webserver" {
+resource "aws_autoscaling_group" "job_webserver" {
   vpc_zone_identifier       = [aws_subnet.private_subnet_a.id, aws_subnet.private_subnet_b.id]
+  target_group_arns         = [aws_lb_target_group.job_webserver_target.arn]
   desired_capacity   = 2
   max_size           = 3
   min_size           = 1
 
   launch_template {
-    id      = aws_launch_template.webserver.id
+    id      = aws_launch_template.job_webserver.id
     version = "$Latest"
   }
   depends_on = [
     aws_nat_gateway.nat
   ]
-}
-
-resource "aws_autoscaling_attachment" "asg_attachment_bar" {
-  autoscaling_group_name = aws_autoscaling_group.webserver.id
-  lb_target_group_arn    = aws_lb_target_group.webserver_target.arn
 }

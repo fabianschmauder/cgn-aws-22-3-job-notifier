@@ -33,18 +33,18 @@ resource "aws_lb" "job_lb" {
 
 }
 
-resource "aws_lb_listener" "webserver_listener" {
+resource "aws_lb_listener" "job_webserver_listener" {
   load_balancer_arn = aws_lb.job_lb.arn
   port              = "80"
   protocol          = "HTTP"
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.webserver_target.arn
+    target_group_arn = aws_lb_target_group.job_webserver_target.arn
   }
 }
 
-resource "aws_lb_target_group" "webserver_target" {
-  name     = "webserver-target"
+resource "aws_lb_target_group" "job_webserver_target" {
+  name     = "job-webserver-target"
   port     = 80
   protocol = "HTTP"
   vpc_id   = aws_vpc.myvpc.id
