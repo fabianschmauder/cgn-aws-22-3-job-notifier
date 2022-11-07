@@ -19,10 +19,8 @@ def create_job(singleJsonObject):
     }
 
 def save_job(jsonJob):
-    #object = s3_client.Object('ip-lamda-bucket', jsonJob['id']+'.json')
-    #object.put(Body=json.dumps(jsonJob))
     s3_client = boto3.client('s3')
-    return s3_client.put_object(Body=json.dumps(jsonJob), Bucket='ip-lamda-bucket', Key=jsonJob['id']+'.json')
+    return s3_client.put_object(Body=json.dumps(jsonJob), Bucket='ip-job-bucket', Key=jsonJob['id']+'.json')
 
 def lambda_handler(event, context):
     result_array = {"saved": [], "failed": []}

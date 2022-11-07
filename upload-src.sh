@@ -10,13 +10,16 @@ zip ../build/api-server.zip requirements.txt
 zip -r ../build/api-server.zip src 
 cd ..
 
-echo "requests-layer for job-lambda"
+echo "zip requests-layer for job-lambda"
 mkdir python
 cd python
 pip3 install requests -t .
 cd ..
 zip -r ../build/requests_layer.zip python
 rm -rf python
+
+echo "zip job-lambda"
+zip -r ../build/job_lambda.zip ./infrastructure/lambda/python/job_lambda.py
 
 echo  "upload to s3"
 aws s3 cp build/api-server.zip s3://ip-src-bucket/
