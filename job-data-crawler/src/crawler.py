@@ -1,5 +1,5 @@
 from arbeitnowapi import load_jobs
-from s3_utils import save_jobs_to_s3
+from dynamodb_utils import save_jobs
 
 def map_jobs(jobs_from_api):
     jobs = []
@@ -16,7 +16,7 @@ def map_jobs(jobs_from_api):
 def handler(event, context):
     jobs_from_api = load_jobs()
     jobs = map_jobs(jobs_from_api)
-    save_jobs_to_s3(jobs)
+    save_jobs(jobs)
 
 
 if __name__ == "__main__":

@@ -12,12 +12,11 @@ cd ..
 echo  "upload to s3"
 aws s3 cp build/api-server.zip s3://job-notifier-src-bucket-21345/
 
-cd job-data-crawler/src
-zip -r ../../build/job_crawler.zip .
-cd ../..
 
-echo  "upload to s3"
-aws s3 cp build/job_crawler.zip s3://job-notifier-src-bucket-21345/
+mkdir infrastructure/build
+cd job-data-crawler/src
+zip -r ../../infrastructure/build/job_crawler.zip .
+cd ../..
 
 
 cd requests-layer

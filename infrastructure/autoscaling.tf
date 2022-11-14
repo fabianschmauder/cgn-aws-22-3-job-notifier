@@ -1,5 +1,4 @@
 resource "aws_launch_template" "webserver" {
-  name = "webserver"
 
   block_device_mappings {
     device_name = "/dev/sda1"
