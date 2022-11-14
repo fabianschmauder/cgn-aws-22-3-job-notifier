@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 import uvicorn
-from s3_utils import get_job_data, list_jobs
+from dynamodb_repository import  get_job_data, list_jobs
+from typing import Union
 
 app = FastAPI()
 
@@ -11,18 +12,16 @@ def health():
 
 
 @app.get("/job")
-def getJobs():
-    jobs = []
-    for jobname in list_jobs():
-        jobs.append(get_job_data(jobname))
-    return jobs
+def getJobs(startKey: Union[str, None] = None, limit: int = 10):
+    return list_jobs(startKey, limit)
 
 
 @app.get("/job/{id}")
 def getJob(id):
     try:
         return get_job_data(id)
-    except Exception:
+    except Exception as exception:
+        print(exception)
         raise HTTPException(status_code=404, detail="Job with id " + id + " not found")
 
 if __name__ == "__main__":
