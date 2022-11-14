@@ -9,5 +9,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - run:  |
-          echo "Yeah our pipline is working"
+      - name: Setup src bucket
+        run:  |
+          sh setup_src_bucket.sh
+
