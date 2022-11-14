@@ -1,0 +1,13 @@
+name: Deploy infrastructure
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+ 
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - run:  |
+          echo "Yeah our pipline is working"
