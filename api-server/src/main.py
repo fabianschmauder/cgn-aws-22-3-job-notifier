@@ -12,8 +12,8 @@ def health():
 
 
 @app.get("/job")
-def getJobs(startKey: Union[str, None] = None, limit: int = 10):
-    return list_jobs(startKey, limit)
+def getJobs(search: str = "", startKey: Union[str, None] = None, limit: int = 10):
+    return list_jobs(search, startKey, limit)
 
 
 @app.get("/job/{id}")
