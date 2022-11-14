@@ -18,4 +18,12 @@ jobs:
       - name: Setup src bucket
         run:  |
           sh setup_src_bucket.sh
-
+      - name: build and upload src
+        run:  |
+          sh upload-src.sh
+      - name: run terraform
+        run:  |
+          cd infrastructure
+          sh setup_terraform_bucket.sh
+          terraform init
+          terraform apply -auto-approve
